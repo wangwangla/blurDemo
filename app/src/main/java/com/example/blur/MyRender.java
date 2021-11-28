@@ -12,9 +12,11 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class MyRender implements GLSurfaceView.Renderer {
     public RenderObject renderObject;//渲染
-    private FrameBufferObject frameBufferObject; //fbo
+//    private FrameBufferObject frameBufferObject; //fbo
     private Bitmap bitmap;
     private Context context;
+    private TextureUtils utils;
+    private int xx = 0;
     public MyRender(Context context){
         this.context = context;
     }
@@ -22,9 +24,11 @@ public class MyRender implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
         renderObject = new RenderObject();
         renderObject.initShader(context);
-        frameBufferObject = new FrameBufferObject();
-        frameBufferObject.initShader();
+//        frameBufferObject = new FrameBufferObject();
+//        frameBufferObject.initShader();
+        utils = new TextureUtils();
         bitmap = fileBitmap(context.getResources(),R.drawable.b);
+        xx = utils.texture(bitmap);
     }
 
     @Override
@@ -44,8 +48,8 @@ public class MyRender implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 gl10) {
         GLES20.glClearColor(1,1,1,1);
         GLES20.glClear(GLES20.GL_COLOR_CLEAR_VALUE|GLES20.GL_COLOR_BUFFER_BIT);
-        frameBufferObject.drawFrame(bitmap,1000,1000);
-        renderObject.drawFrame(frameBufferObject.getTexture());
+//        frameBufferObject.drawFrame(bitmap,1000,1000);
+        renderObject.drawFrame(xx);
     }
 
     public Bitmap fileBitmap(Resources res, int id) {

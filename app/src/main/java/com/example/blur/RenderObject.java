@@ -105,6 +105,7 @@ public class RenderObject {
         for (int x = -blurRadius; x <= blurRadius; x++) {
             for (int y = -blurRadius; y <= blurRadius; y++) {
                 int s = x*x+y*y;
+
                 float a = (float) ((1.0f / 2.0f * Math.PI * Math.pow(sigma, 2.0f)) *
                         Math.exp(-s / (2.0f * Math.pow(sigma, 2.0f))));
                 gaussianWeights[g] = a;
