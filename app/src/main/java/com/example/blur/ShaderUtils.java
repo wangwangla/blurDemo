@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class ShaderUtils {
-    private static final String TAG = "shader";
 
     public static int createProgram(String vertexSource, String fragmentSource) {
         int vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertexSource);
@@ -20,8 +19,6 @@ public class ShaderUtils {
             GLES20.glAttachShader(program, vertexShader);
             GLES20.glAttachShader(program, pixelShader);
             GLES20.glLinkProgram(program);
-            int[] linkStatus = new int[1];
-            GLES20.glGetProgramiv(program, GLES20.GL_LINK_STATUS, linkStatus, 0);
         }
         return program;
     }

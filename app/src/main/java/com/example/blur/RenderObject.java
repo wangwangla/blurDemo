@@ -63,6 +63,12 @@ public class RenderObject {
         scaleHeight = height;
     }
 
+
+    /**
+     * 不必太纠结  做适配的
+     * @param screenWidth
+     * @param screenHeight
+     */
     public void setScreenSize(int screenWidth,int screenHeight){
         float sh = screenWidth * 1.0f / screenHeight;
         float vh = scaleWidth * 1.0f / scaleHeight;
@@ -89,7 +95,6 @@ public class RenderObject {
         if(blurRadius == 0){
             return;
         }
-        long ttt = System.currentTimeMillis();
         float sumOfWeights = 0.0f;
         int g = 0;
         int tx = blurRadius*2+1;
@@ -100,7 +105,8 @@ public class RenderObject {
         for (int x = -blurRadius; x <= blurRadius; x++) {
             for (int y = -blurRadius; y <= blurRadius; y++) {
                 int s = x*x+y*y;
-                float a = (float) ((1.0f / 2.0f * Math.PI * Math.pow(sigma, 2.0f)) * Math.exp(-s / (2.0f * Math.pow(sigma, 2.0f))));
+                float a = (float) ((1.0f / 2.0f * Math.PI * Math.pow(sigma, 2.0f)) *
+                        Math.exp(-s / (2.0f * Math.pow(sigma, 2.0f))));
                 gaussianWeights[g] = a;
                 sumOfWeights+=a;
                 g++;
@@ -131,6 +137,7 @@ public class RenderObject {
         GLES20.glUseProgram(programId);
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture);
+//      纹理
         GLES20.glUniform1i(uTextureSamplerHandle, 0);
 
         GLES20.glEnableVertexAttribArray(aPositionHandle);
@@ -142,7 +149,6 @@ public class RenderObject {
         GLES20.glUniform1f(widthOfsetHandle, 1.0f/scaleWidth);
         GLES20.glUniform1f(heightOfsetHandle, 1.0f/scaleHeight);
         GLES20.glUniform1i(blurRadiusHandle, blurRadius);
-
         int tx = blurRadius*2+1;
         GLES20.glUniform1fv(gaussianWeightsHandle,tx*tx, weightsBuffer);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4);

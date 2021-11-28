@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,11 +17,14 @@ public class MainActivity extends AppCompatActivity {
         surfaceView.setEGLContextClientVersion(2);
         final MyRender myRender = new MyRender(this);
         surfaceView.setRenderer(myRender);
+        seekBar(myRender);
+    }
+
+    private void seekBar(MyRender myRender) {
         SeekBar width1 = findViewById(R.id.width);
         SeekBar height = findViewById(R.id.height);
         SeekBar sigma = findViewById(R.id.sigma);
         SeekBar radius = findViewById(R.id.radius);
-
         width1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                
+
             }
 
             @Override
@@ -97,6 +99,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 }

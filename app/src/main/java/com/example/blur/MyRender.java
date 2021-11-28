@@ -35,7 +35,7 @@ public class MyRender implements GLSurfaceView.Renderer {
     }
 
     public void change(){
-        renderObject.setScaleSize(200,200);
+//        renderObject.setScaleSize(200,200);
         renderObject.gaussianWeights();
     }
 
