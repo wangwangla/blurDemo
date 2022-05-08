@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         height.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                System.out.println(i+"zzzzzzzzzzzzzzzzzzzz");
                 scaley = i;
                 myRender.renderObject.setScaleSize(scalex,scaley);
                 myRender.change();
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         radius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                System.out.println(i+"------------");
                 myRender.renderObject.setBlurRadius(i);
                 myRender.change();
             }
@@ -84,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         sigma.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                System.out.println(i+"=============");
                 myRender.renderObject.setSigma(i);
                 myRender.change();
             }

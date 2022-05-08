@@ -21,6 +21,10 @@ public class RenderObject {
     private int gaussianWeightsHandle;
     private int blurRadiusHandle;
     private int scaleWidth,scaleHeight;
+    private FloatBuffer weightsBuffer;
+    private double sigma = 3;
+    private int blurRadius = 2;
+
     public RenderObject(){
         final float[] vertexData = {
                 1f, -1f, 0f,
@@ -36,10 +40,12 @@ public class RenderObject {
                 1f, 1f,
                 0f, 1f
         };
-        vertexBuffer = ByteBuffer.allocateDirect(vertexData.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer().put(vertexData);
+        vertexBuffer = ByteBuffer.allocateDirect(vertexData.length * 4).
+                order(ByteOrder.nativeOrder()).asFloatBuffer().put(vertexData);
         vertexBuffer.position(0);
 
-        textureVertexBuffer = ByteBuffer.allocateDirect(textureVertexData.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer().put(textureVertexData);
+        textureVertexBuffer = ByteBuffer.allocateDirect(textureVertexData.length * 4).
+                order(ByteOrder.nativeOrder()).asFloatBuffer().put(textureVertexData);
         textureVertexBuffer.position(0);
 
     }
@@ -90,7 +96,7 @@ public class RenderObject {
         myRect.bottom = top + viewHeight;
     }
 
-    private FloatBuffer weightsBuffer;
+
     public void gaussianWeights(){
         if(blurRadius == 0){
             return;
@@ -122,12 +128,11 @@ public class RenderObject {
                 .put(gaussianWeights);
         weightsBuffer.position(0);
     }
-    private int blurRadius = 2;
+
     public void setBlurRadius(int blurRadius) {
         this.blurRadius = blurRadius;
     }
 
-    private double sigma = 3;
     public void setSigma(double sigma) {
         this.sigma = sigma;
     }
@@ -145,7 +150,8 @@ public class RenderObject {
         GLES20.glVertexAttribPointer(aPositionHandle, 3, GLES20.GL_FLOAT, false,
                 12, vertexBuffer);
         GLES20.glEnableVertexAttribArray(aTextureCoordHandle);
-        GLES20.glVertexAttribPointer(aTextureCoordHandle, 2, GLES20.GL_FLOAT, false, 8, textureVertexBuffer);
+        GLES20.glVertexAttribPointer(aTextureCoordHandle, 2,
+                GLES20.GL_FLOAT, false, 8, textureVertexBuffer);
 
         GLES20.glUniform1f(widthOfsetHandle, 1.0f/scaleWidth);
         GLES20.glUniform1f(heightOfsetHandle, 1.0f/scaleHeight);
